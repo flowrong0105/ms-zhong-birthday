@@ -640,16 +640,27 @@ function createPetals() {
 createSparkles();
 
 /* Let petals appear when the letter opens */
-openLetter = function() {
-  originalOpenLetter();
-  createPetals();
 
+function openLetter() {
+  showScene('scene3');
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+
+  // Add falling petals
+  if (typeof createPetals === "function") {
+    createPetals();
+  }
+
+  // Show the six photos one by one
   setTimeout(() => {
     document.querySelectorAll(".memory-card").forEach(card => {
       card.classList.add("show");
     });
   }, 500);
-};
+}
+
 </script>
 </body>
 </html>
