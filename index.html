@@ -1,1 +1,408 @@
 
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dear Ms. Zhong ♡</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Noto+Serif+SC:wght@400;500&display=swap');
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: #f8f1eb;
+  color: #76584f;
+  font-family: 'Noto Serif SC', serif;
+}
+
+.page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 35px 18px;
+}
+
+.screen {
+  display: none;
+  width: 100%;
+  max-width: 560px;
+  text-align: center;
+  animation: appear 1s ease;
+}
+
+.screen.active { display: block; }
+
+@keyframes appear {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.eyebrow {
+  font-family: 'Playfair Display', serif;
+  font-size: 12px;
+  letter-spacing: 4px;
+  color: #b58c80;
+  margin-bottom: 24px;
+}
+
+h1 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 400;
+  font-size: clamp(34px, 8vw, 48px);
+  margin: 10px 0;
+}
+
+.subtitle {
+  color: #a78a7e;
+  font-size: 14px;
+  line-height: 2;
+}
+
+.cake-area {
+  position: relative;
+  margin: 48px auto 35px;
+  width: 230px;
+  height: 205px;
+  cursor: pointer;
+}
+
+.cake {
+  position: absolute;
+  width: 180px;
+  height: 90px;
+  bottom: 15px;
+  left: 25px;
+  background: #e9b8ae;
+  border-radius: 12px 12px 20px 20px;
+  box-shadow: 0 9px 0 #d59c91, 0 15px 25px #b98c7933;
+}
+
+.cake::before {
+  content: '';
+  position: absolute;
+  background: #fff0e7;
+  width: 180px;
+  height: 30px;
+  top: -12px;
+  border-radius: 50%;
+}
+
+.cake::after {
+  content: '♡  ♡  ♡';
+  position: absolute;
+  top: 30px;
+  left: 42px;
+  color: #fff2e9;
+  font-size: 20px;
+}
+
+.candle {
+  position: absolute;
+  z-index: 2;
+  width: 10px;
+  height: 52px;
+  background: repeating-linear-gradient(
+    45deg, #fff6e9, #fff6e9 5px, #dba99c 5px, #dba99c 9px
+  );
+  left: 110px;
+  top: 66px;
+  border-radius: 4px;
+}
+
+.flame {
+  position: absolute;
+  width: 18px;
+  height: 27px;
+  left: 106px;
+  top: 35px;
+  background: #f6ad56;
+  border-radius: 50% 50% 45% 45%;
+  transform: rotate(5deg);
+  box-shadow: 0 0 20px #f6ad5688;
+  animation: flicker .7s infinite alternate;
+  transition: opacity .5s, transform .5s;
+}
+
+@keyframes flicker {
+  from { transform: rotate(-5deg) scale(.95); }
+  to { transform: rotate(5deg) scale(1.08); }
+}
+
+.flame.out {
+  opacity: 0;
+  transform: scale(0) translateY(-30px);
+}
+
+.smoke {
+  position: absolute;
+  left: 112px;
+  top: 25px;
+  color: #b9a9a0;
+  opacity: 0;
+  font-size: 25px;
+}
+
+.smoke.show { animation: smoke 1.4s ease forwards; }
+
+@keyframes smoke {
+  0% { opacity: 0; transform: translateY(10px); }
+  40% { opacity: .8; }
+  100% { opacity: 0; transform: translateY(-35px); }
+}
+
+.hint {
+  color: #a98b80;
+  font-size: 12px;
+  letter-spacing: 1px;
+}
+
+button {
+  border: 1px solid #cba99b;
+  background: #b98f82;
+  color: white;
+  padding: 13px 29px;
+  border-radius: 30px;
+  font-family: inherit;
+  font-size: 14px;
+  cursor: pointer;
+  transition: .3s;
+  margin-top: 25px;
+}
+
+button:hover {
+  background: #956d63;
+  transform: translateY(-2px);
+}
+
+.hidden { display: none !important; }
+
+.envelope-wrap {
+  margin: 55px auto 25px;
+  width: 260px;
+  cursor: pointer;
+  transition: transform .3s;
+}
+
+.envelope-wrap:hover { transform: translateY(-6px); }
+
+.envelope {
+  position: relative;
+  height: 165px;
+  background: #e9c9ba;
+  border-radius: 5px;
+  box-shadow: 0 12px 30px #8b625222;
+  overflow: hidden;
+}
+
+.envelope::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: #f0d8cb;
+  clip-path: polygon(0 0, 50% 60%, 100% 0);
+  z-index: 2;
+}
+
+.envelope::after {
+  content: '♡';
+  position: absolute;
+  z-index: 3;
+  left: 50%;
+  top: 47%;
+  transform: translate(-50%, -50%);
+  background: #b87f79;
+  color: white;
+  width: 39px;
+  height: 39px;
+  line-height: 39px;
+  border-radius: 50%;
+  font-size: 22px;
+}
+
+.envelope-text {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  color: #956f65;
+  font-size: 22px;
+  margin-top: 18px;
+}
+
+.letter {
+  background: #fffdf8;
+  padding: 35px clamp(20px, 6vw, 42px);
+  border: 1px solid #eadbd0;
+  box-shadow: 0 15px 40px #8b62521a;
+  text-align: left;
+  margin: 30px auto;
+  border-radius: 4px;
+  animation: appear 1.2s ease;
+}
+
+.letter-date {
+  text-align: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 12px;
+  letter-spacing: 3px;
+  color: #b28e80;
+  margin-bottom: 30px;
+}
+
+.letter h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 25px;
+  font-weight: 400;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.letter p {
+  font-size: 14px;
+  line-height: 2.3;
+  margin: 0 0 19px;
+  color: #71564e;
+  text-align: justify;
+  white-space: pre-wrap;
+}
+
+.letter .signature {
+  text-align: right;
+  margin-top: 35px;
+  line-height: 2.3;
+}
+
+.letter .signature strong {
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.footer {
+  color: #b5968b;
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 14px;
+  margin: 35px 0;
+}
+
+</style>
+</head>
+
+<body>
+<div class="page">
+
+  <!-- 第一幕：生日蜡烛 -->
+  <section class="screen active" id="scene1">
+    <div class="eyebrow">A LITTLE SURPRISE FOR YOU</div>
+    <h1>Dear Ms. Zhong,</h1>
+    <p class="subtitle">
+      I have something special for you.<br>
+      A little moment, made just for you.
+    </p>
+
+    <div class="cake-area" id="candleArea" onclick="blowCandle()">
+      <div class="cake"></div>
+      <div class="candle"></div>
+      <div class="flame" id="flame"></div>
+      <div class="smoke" id="smoke">〰</div>
+    </div>
+
+    <h2 style="font-family:'Playfair Display';font-weight:400;">
+      Make a wish ♡
+    </h2>
+    <p class="hint" id="candleHint">
+      Tap the candle to blow it out.
+    </p>
+
+    <button id="nextButton" class="hidden" onclick="goToLetter()">
+      A little something for you →
+    </button>
+  </section>
+
+  <!-- 第二幕：信封 -->
+  <section class="screen" id="scene2">
+    <div class="eyebrow">A LETTER FOR YOU</div>
+    <h1>Just for you.</h1>
+    <p class="subtitle">
+      Some words I've been wanting to tell you...
+    </p>
+
+    <div class="envelope-wrap" onclick="openLetter()">
+      <div class="envelope"></div>
+      <div class="envelope-text">With love, always.</div>
+    </div>
+
+    <p class="hint">Tap the envelope to open ♡</p>
+  </section>
+
+  <!-- 第三幕：完整信件 -->
+  <section class="screen" id="scene3">
+    <div class="eyebrow">A LETTER FROM RONGRONG</div>
+
+    <div class="letter">
+      <div class="letter-date">NOVEMBER 25, 2026</div>
+
+      <h2>To my dear teacher & friend</h2>
+
+      <p>To: Dear Ms Zhong</p>
+
+      <p>Happy Birthday to u！生日快乐，仲老师。💗</p>
+
+      <p>每年时间来到十一月，我都会记得这个特别的日子，一个庆祝你存在的特别时刻！！</p>
+
+      <p>从我初中到高中再到大学我们都保持着密切的联系，也一直挂念着彼此，这是令我无数次感怀，无比宝贝的一段关系。你的话语给我力量，从过去到现在都沉甸甸地有回响。我在低谷时，无助地和你声嘶力竭时，你说挡风玻璃是比后视镜要大的，要向前看；我在高光时，第一时间就是和你分享喜悦，你说美好就会吸引美好，状态极佳会如月之恒，如日之升。好像很多我需要你作为良师益友出现的时刻，你都会在。</p>
+
+      <p>潜移默化的影响，我身上也有了很多你的影子，我想这会是一个老师最幸福的事情。一朵云推动另一朵云，然后降水，最终浇灌了一棵棵小树苗茁壮成长。不止正义感、坚韧劲、思考的方式、柔和的力量这些被记住了，中考前你奖励我的那杯奶茶贴纸到现在也裱装在我的墙上，不止为了庆祝我满分，还在提醒我要保持“三心”。这样的例子有很多很多，纸短情长，言语是有力量的，我希望这样的感受能让你更加确信你的价值，在一些大人也会有的迷茫时刻，在一些备课比赛披星戴月的日子里。</p>
+
+      <p>最重要的还是希望你能身体健康，平安喜乐。不泯热爱，一直保有着那颗和我谈论以后无限可能时闪闪发光的眼睛，都祝愿我们！于我而言的珍贵。</p>
+
+      <p class="signature">
+        你的学生&好朋友<br>
+        <strong>榕榕 ♡</strong><br>
+        于2026年11月25日
+      </p>
+    </div>
+
+    <div class="footer">
+      Some people make the world a little brighter. ♡
+    </div>
+  </section>
+
+</div>
+
+<script>
+function showScene(id) {
+  document.querySelectorAll('.screen').forEach(s => {
+    s.classList.remove('active');
+  });
+  document.getElementById(id).classList.add('active');
+}
+
+let candleBlown = false;
+
+function blowCandle() {
+  if (candleBlown) return;
+  candleBlown = true;
+
+  document.getElementById('flame').classList.add('out');
+  document.getElementById('smoke').classList.add('show');
+
+  document.getElementById('candleHint').innerText =
+    'A wish for you, today and always. ♡';
+
+  document.getElementById('nextButton').classList.remove('hidden');
+}
+
+function goToLetter() {
+  showScene('scene2');
+}
+
+function openLetter() {
+  showScene('scene3');
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+</script>
+</body>
+</html>
+
