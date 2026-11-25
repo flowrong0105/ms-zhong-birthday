@@ -357,6 +357,93 @@ button:hover {
   }
 }
 
+/* ===== Birthday special effects ===== */
+
+/* Warm golden floating lights */
+.sparkle {
+  position: fixed;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #e9c99b;
+  box-shadow: 0 0 10px 3px #e9c99b88;
+  pointer-events: none;
+  z-index: 20;
+  opacity: 0;
+  animation: sparkleFloat 7s ease-in-out infinite;
+}
+
+@keyframes sparkleFloat {
+  0% {
+    opacity: 0;
+    transform: translateY(15px) scale(.5);
+  }
+  30% { opacity: .8; }
+  70% { opacity: .5; }
+  100% {
+    opacity: 0;
+    transform: translateY(-90px) scale(1.2);
+  }
+}
+
+/* Soft pink falling petals */
+.petal {
+  position: fixed;
+  top: -35px;
+  z-index: 30;
+  pointer-events: none;
+  color: #dba6a5;
+  font-size: 19px;
+  opacity: 0;
+  animation: petalFall 7s linear forwards;
+}
+
+@keyframes petalFall {
+  0% {
+    opacity: 0;
+    transform: translateY(0) rotate(0deg);
+  }
+  15% { opacity: .8; }
+  85% { opacity: .7; }
+  100% {
+    opacity: 0;
+    transform: translateY(105vh) rotate(300deg);
+  }
+}
+
+/* Photos gently fade in one by one */
+@keyframes memoryFade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.memory-card {
+  opacity: 0;
+  animation: memoryFade 1s ease forwards;
+}
+
+.memory-card:nth-child(1) { animation-delay: .2s; }
+.memory-card:nth-child(2) { animation-delay: .6s; }
+.memory-card:nth-child(3) { animation-delay: 1s; }
+.memory-card:nth-child(4) { animation-delay: 1.4s; }
+.memory-card:nth-child(5) { animation-delay: 1.8s; }
+.memory-card:nth-child(6) { animation-delay: 2.2s; }
+
+/* A little heart at the end */
+.ending-heart {
+  display: block;
+  margin: 20px auto 5px;
+  color: #c58d8b;
+  font-size: 30px;
+  text-align: center;
+  animation: heartBeat 1.5s ease-in-out infinite;
+}
+
+@keyframes heartBeat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.18); }
+}
+
 </style>
 </head>
 
@@ -470,6 +557,11 @@ button:hover {
     </div>
   </div>
 </div>
+<div class="ending-heart">♡</div>
+<p style="text-align:center; color:#a8877e; font-family:'Playfair Display',serif; font-size:14px;">
+  With love, always. 
+</p>
+
 
 
     <div class="footer">
@@ -510,6 +602,54 @@ function openLetter() {
   showScene('scene3');
   window.scrollTo({top: 0, behavior: 'smooth'});
 }
+
+/* ===== Floating golden sparkles ===== */
+function createSparkles() {
+  for (let i = 0; i < 18; i++) {
+    const sparkle = document.createElement("span");
+    sparkle.className = "sparkle";
+    sparkle.style.left = Math.random() * 100 + "vw";
+    sparkle.style.top = Math.random() * 100 + "vh";
+    sparkle.style.animationDelay = Math.random() * 7 + "s";
+    document.body.appendChild(sparkle);
+  }
+}
+
+/* ===== Falling pink petals ===== */
+function createPetals() {
+  const symbols = ["✿", "❀", "♡"];
+
+  for (let i = 0; i < 18; i++) {
+    const petal = document.createElement("span");
+    petal.className = "petal";
+    petal.textContent =
+      symbols[Math.floor(Math.random() * symbols.length)];
+
+    petal.style.left = Math.random() * 100 + "vw";
+    petal.style.animationDelay = Math.random() * 4 + "s";
+    petal.style.animationDuration =
+      (6 + Math.random() * 4) + "s";
+
+    document.body.appendChild(petal);
+
+    setTimeout(() => petal.remove(), 11000);
+  }
+}
+
+/* Start golden lights when the page loads */
+createSparkles();
+
+/* Let petals appear when the letter opens */
+openLetter = function() {
+  originalOpenLetter();
+  createPetals();
+
+  setTimeout(() => {
+    document.querySelectorAll(".memory-card").forEach(card => {
+      card.classList.add("show");
+    });
+  }, 500);
+};
 </script>
 </body>
 </html>
